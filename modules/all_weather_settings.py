@@ -11,7 +11,7 @@ TICKERS = {
 	"stocks": ['VTI', 'VWO', 'VGK'], 
 	"commodities": ['DBC'], 
 	"corporate credit": ['HYG'],
-	'EM credit': [],  # empty for now, can add
+	"EM credit": [],  # empty for now, can add
 	"nominal bonds": ['TLT'], 
 	"inflation-linked": ['GLD']
 }
