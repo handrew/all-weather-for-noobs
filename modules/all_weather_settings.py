@@ -8,7 +8,7 @@ WEIGHTS_FILE_TIER5 = "output/weights_tier3_VGK_HYG.csv"
 WEIGHTS_FILE_TIER6 = "output/weights_VGK_TLT_GLD_DBC.csv"
 
 TICKERS = {
-	"stocks": ['VTI', 'VWO', 'VGK'], 
+	"stocks": ['VTI', 'VGK', 'HEWJ'], 
 	"commodities": ['DBC'], 
 	"corporate credit": ['HYG'],
 	"EM credit": [],  # empty for now, can add
@@ -16,7 +16,7 @@ TICKERS = {
 	"inflation-linked": ['GLD']
 }
 
-# VTI, VWO, VGK, DBC, HYG, TLT, GLD
+# VTI, VWO, VGK, HEWJ, DBC, HYG, TLT, GLD
 TIER_1_TICKERS = TICKERS.copy() 
 
 # VTI, VWO, VGK, DBC, TLT, GLD
@@ -54,11 +54,11 @@ TICKER_TIERS = [
 ###############################################
 # INPUT HERE
 
-TIER_CHOICE = 6
-# TICKER_VOLATILITY_OVERRIDES = {}
-TICKER_VOLATILITY_OVERRIDES = get_implied_volatilities_for_tickers(['TLT', 'GLD', 'DBC', 'HYG', 'VTI', 'VWO', 'VGK'])
+TIER_CHOICE = 1
+TICKER_VOLATILITY_OVERRIDES = {}
+# TICKER_VOLATILITY_OVERRIDES = get_implied_volatilities_for_tickers(['TLT', 'GLD', 'HEWJ', 'DBC', 'HYG', 'VTI', 'VWO', 'VGK'])
 
-VOL_WINDOW = 252
+VOL_WINDOW = 50
 
 ###############################################
 
