@@ -1,68 +1,24 @@
 from modules.implied_vol import *
 
-WEIGHTS_FILE_TIER1 = "output/weights_tier1.csv"
-WEIGHTS_FILE_TIER2 = "output/weights_tier2.csv"
-WEIGHTS_FILE_TIER3 = "output/weights_tier3.csv"
-WEIGHTS_FILE_TIER4 = "output/weights_tier3_stocks_only_with_VGK.csv"
-WEIGHTS_FILE_TIER5 = "output/weights_tier3_VGK_HYG.csv"
-WEIGHTS_FILE_TIER6 = "output/weights_VGK_TLT_GLD_DBC.csv"
-
-TICKERS = {
-	"stocks": ['VTI', 'VGK', 'HEWJ'], 
-	"commodities": ['DBC'], 
-	"corporate credit": ['HYG'],
-	"EM credit": [],  # empty for now, can add
-	"nominal bonds": ['TLT'], 
-	"inflation-linked": ['GLD']
-}
-
-# VTI, VWO, VGK, HEWJ, DBC, HYG, TLT, GLD
-TIER_1_TICKERS = TICKERS.copy() 
-
-# VTI, VWO, VGK, DBC, TLT, GLD
-TIER_2_TICKERS = TICKERS.copy()
-TIER_2_TICKERS['corporate credit'] = []
-
-# VTI, DBC, TLT, GLD
-TIER_3_TICKERS = TICKERS.copy()
-TIER_3_TICKERS['corporate credit'] = []
-TIER_3_TICKERS['stocks'] = ['VTI']
-
-# VTI, VGK, TLT, GLD, DBC
-TIER_4_TICKERS = TICKERS.copy()
-TIER_4_TICKERS['corporate credit'] = []
-TIER_4_TICKERS['stocks'] = ['VTI', 'VGK']
-
-# VTI, VGK, HYG, TLT, GLD, DBC
-TIER_5_TICKERS = TICKERS.copy()
-TIER_5_TICKERS['stocks'] = ['VTI', 'VGK']
-
-# VGK, DBC, TLT, GLD
-TIER_6_TICKERS = TICKERS.copy()
-TIER_6_TICKERS['corporate credit'] = []
-TIER_6_TICKERS['stocks'] = ['VGK']
-
-TICKER_TIERS = [
-	(TIER_1_TICKERS, WEIGHTS_FILE_TIER1), 
-	(TIER_2_TICKERS, WEIGHTS_FILE_TIER2), 
-	(TIER_3_TICKERS, WEIGHTS_FILE_TIER3),
-	(TIER_4_TICKERS, WEIGHTS_FILE_TIER4),
-	(TIER_5_TICKERS, WEIGHTS_FILE_TIER5),
-	(TIER_6_TICKERS, WEIGHTS_FILE_TIER6)
-]
+WEIGHTS_FILE = "output/weights.csv"
 
 ###############################################
 # INPUT HERE
 
-TIER_CHOICE = 1
-TICKER_VOLATILITY_OVERRIDES = {}
-# TICKER_VOLATILITY_OVERRIDES = get_implied_volatilities_for_tickers(['TLT', 'GLD', 'HEWJ', 'DBC', 'HYG', 'VTI', 'VWO', 'VGK'])
+TICKERS = {
+	"stocks": ['VTI', 'VEA'], 
+	"commodities": ['DBC'], 
+	"corporate credit": ['HYG'],
+	"EM credit": [],  # empty for now, can add
+	"nominal bonds": ['TLT', 'HYD'], 
+	"inflation-linked": ['GLD']
+}
 
-VOL_WINDOW = 50
+TICKER_VOLATILITY_OVERRIDES = {}
+TICKER_VOLATILITY_OVERRIDES = get_implied_volatilities_for_tickers(['TLT', 'GLD', 'TLT', 'VEA', 'DBC', 'HYG', 'VTI', 'VGK'])
+
+VOL_WINDOW = 60
 
 ###############################################
-
-TICKERS = TICKER_TIERS[TIER_CHOICE-1][0]
-WEIGHTS_FILE = TICKER_TIERS[TIER_CHOICE-1][1]
 
 print ">> Outputting to %s" % WEIGHTS_FILE
