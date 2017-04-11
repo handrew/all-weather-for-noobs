@@ -29,7 +29,7 @@ In no particular order and subject to revision:
 <ul>
 	<li> Equalized variance within boxes before equalizing variance between boxes </li>
 	<li> Didn't sum variances the statistically correct way because correlations between assets are inherently unstable </li>
-	<li> Used four ETFs -- GLD (gold), DBC (commodities), TLT (long-term treasuries), and VTI (American stock market) </li>
+	<li> Used a set of ETFs including (but potentially not limited to) -- GLD (gold), DBC (commodities), TLT (long-term treasuries), VTI (American stock market), VEA (developed world equities), VWO (emerging market equities) </li>
 	<li> The point of using these ETFs is that they all have roughly similar volatilities (as measured by standard deviation). I didn't double check to make sure that they have the same returns (and thus the same risk/return profiles) since I only have data going back 8-10 years</li>
 	<li> I did not include an IL bond asset because there were no IL ETFs that were volatile enough or levered to work out. Gold is an (imperfect) substitute for this. </li>
 </ul>
@@ -37,7 +37,7 @@ In no particular order and subject to revision:
 The All Weather configuration was as such (and also subject to revision):
 
 <ul> 
-	<li>Growth Rising: VTI, DBC (may also want to add EMB for EM debt and HYG for corporate debt)</li>
+	<li>Growth Rising: VTI, VEA, DBC, VWO (may also want to add EMB for EM debt and HYG for corporate debt)</li>
 	<li>Growth Falling: TLT, GLD</li>
 	<li>Inflation Rising: GLD, DBC, (may also want to add EMB for EM debt)</li>
 	<li>Inflation Falling: VTI, TLT</li>
