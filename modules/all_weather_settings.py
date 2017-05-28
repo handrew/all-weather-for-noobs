@@ -6,11 +6,11 @@ WEIGHTS_FILE = "output/weights.csv"
 # INPUT HERE
 
 TICKERS = {
-	"stocks": ['VTI', 'VEA'], 
+	"stocks": ['VTI', 'VEA', 'VWO'], 
 	"commodities": ['DBC'],
 	"corporate credit": [],
 	"EM credit": [],  # empty for now, can add
-	"nominal bonds": ['TLT', 'HYD'], 
+	"nominal bonds": ['TLT'], 
 	"inflation-linked": ['GLD']
 }
 
