@@ -1,7 +1,7 @@
 import pandas as pd
-import pandas_datareader.data as web
 import util
 import datetime
+
 
 def backtest(weight_dict, output=False):
 	print "Backtesting..."

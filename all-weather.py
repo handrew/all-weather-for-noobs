@@ -1,5 +1,4 @@
 import pandas as pd
-import pandas_datareader.data as web
 import datetime
 import numpy as np
 import collections
