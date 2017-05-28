@@ -219,7 +219,7 @@ def main():
 	ticker_data = get_ticker_data() 
 
 	ticker_volatilities = get_ticker_volatilities(ticker_data)
-	pdb.set_trace()
+	
 	# then treat each group (like stocks) as its own portfolio and equalize volatility contributions
 	asset_class_weights = get_asset_class_weights(ticker_volatilities)
 	# then treat each box as its own portfolio and equalize volatility contributions
