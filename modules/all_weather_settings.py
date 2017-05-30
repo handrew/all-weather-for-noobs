@@ -14,8 +14,11 @@ TICKERS = {
 	"inflation-linked": ['GLD']
 }
 
-# TICKER_VOLATILITY_OVERRIDES = {}
-TICKER_VOLATILITY_OVERRIDES = get_implied_volatilities_for_tickers(['TLT', 'GLD', 'VWO', 'VEA', 'DBC', 'HYG', 'VTI', 'VGK', 'EWJ'])
+TICKER_VOLATILITY_OVERRIDES = {}
+OVERRIDE_TICKERS = [
+	'TLT', 'GLD', 'VWO', 'DBC', 'HYG', 'VTI', 'VGK', 'EWJ'
+]
+# TICKER_VOLATILITY_OVERRIDES = get_implied_volatilities_for_tickers(OVERRIDE_TICKERS)
 
 VOL_WINDOW = 60
 
