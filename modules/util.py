@@ -20,5 +20,5 @@ def get_returns(ticker, start=datetime.datetime(1940, 1, 1), end=datetime.dateti
 def get_annualized_variance_of_series(series, window=DEFAULT_VOL_WINDOW):
 	window_std = np.std(series.tail(window))
 	variance = window_std ** 2
-	ann_var = variance * np.sqrt(252) # 252 is number of trading days in a year
+	ann_var = variance * 252 # 252 is number of trading days in a year
 	return ann_var
