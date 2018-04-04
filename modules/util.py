@@ -4,7 +4,7 @@ import datetime
 import numpy as np
 import keyring
 
-QUANDL_AUTH_TOKEN = keyring.get_password('handrew', 'quandl')
+QUANDL_AUTH_TOKEN = keyring.get_password('quandl', 'handrew')
 PRICE_FIELD = 'Adj_Close'
 DEFAULT_VOL_WINDOW = 200 # a little less than a year 
 
