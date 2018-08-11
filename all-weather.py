@@ -3,22 +3,20 @@ import datetime
 import numpy as np
 import collections
 
-import pdb
-import sys
 import modules.util as util
 import modules.backtesting as backtesting
 import pprint
 from modules.all_weather_settings import *
 
-##### IMPLEMENTATION DETAILS ##### 
-# First we need to equalize the volatility in each growth / inflation box 
+##### IMPLEMENTATION DETAILS #####
+# First we need to equalize the volatility in each growth / inflation box
 # And then assign equal volatility weights to each
-# 
+#
 # NOTE: we are not calculating sum of variances the statistically "correct" way
 # by subtracting out covariance as well, since covariance itself is unstable over time
 
 ##### Parameters from all_weather_settings ######
-# TICKER_VOLATILITY_OVERRIDES 
+# TICKER_VOLATILITY_OVERRIDES
 # TIER_CHOICE
 # VOL_WINDOW
 
@@ -33,21 +31,21 @@ def update_weight_file(weight_dict):
 # given a tuple of (label, value)s, return
 # risk parity equalized {"label": weight}
 def equalize_weights(tuples):
-    tuples = [tup for tup in tuples if tup[1] != 0.0] # remove zero values
+    tuples = [tup for tup in tuples if tup[1] != 0.0]  # remove zero values
     num_args = len(tuples)
 
     if (num_args):
-        last_vol = tuples[num_args-1][1]
-        last_label = tuples[num_args-1][0]
+        last_vol = tuples[num_args - 1][1]
+        last_label = tuples[num_args - 1][0]
 
         last_vol_over_other_vols = []
-        for i in range(0, num_args-1):
+        for i in range(0, num_args - 1):
             curr_vol = tuples[i][1]
-            last_vol_over_other_vols.append(last_vol/curr_vol)
+            last_vol_over_other_vols.append(last_vol / curr_vol)
 
         weight_n = 1.0 / (sum(last_vol_over_other_vols) + 1)
         weights_i = collections.defaultdict(lambda: 0.0)
-        for i in range(0, num_args-1):
+        for i in range(0, num_args - 1):
             curr_vol = tuples[i][1]
             curr_label = tuples[i][0]
             weights_i[curr_label] = (last_vol / curr_vol) * weight_n
@@ -68,8 +66,8 @@ def finalize_ticker_weights(asset_class_weights, environment_weights, box_weight
     corporate_credit_weight = environment_weights['gr'] * box_weights['gr']['corporate credit']
 
     weights_by_asset = {
-        "stocks": stocks_weight, 
-        "commodities": commodities_weight, 
+        "stocks": stocks_weight,
+        "commodities": commodities_weight,
         "nominal bonds": nominal_bonds_weight,
         "inflation-linked": inflation_weight,
         "EM credit": em_credit_weight,
@@ -87,7 +85,7 @@ def finalize_ticker_weights(asset_class_weights, environment_weights, box_weight
     return weights_dict
 
 
-# return {"stocks": int, "commodities": int, etc} 
+# return {"stocks": int, "commodities": int, etc}
 # @param: whatever is returend from get_asset_class_weights
 def get_asset_class_volatilities_from_ticker_weights(asset_class_weights, ticker_volatilities):
     asset_volatilities = {}
@@ -170,7 +168,7 @@ def get_box_weights(ticker_volatilities, asset_class_weights):
 # return {asset_class: {tickers: weights}}
 def get_asset_class_weights(ticker_volatilities):
     asset_class_weights = {}
-    for asset_class in TICKERS: # stocks, commodities, EM credit, etc
+    for asset_class in TICKERS:  # stocks, commodities, EM credit, etc
         tickers_in_asset_class = TICKERS[asset_class]
         volatilities_for_tickers = [ticker_volatilities[ticker] for ticker in tickers_in_asset_class]
         ordered_weights_by_ticker = equalize_weights(zip(tickers_in_asset_class, volatilities_for_tickers)).values()
@@ -182,7 +180,7 @@ def get_asset_class_weights(ticker_volatilities):
 # Overriding historical volatility with implied
 def perform_variance_overrides(ticker_volatilities):
     for ticker in TICKER_VOLATILITY_OVERRIDES:
-        if (ticker in ticker_volatilities): 
+        if (ticker in ticker_volatilities):
             print ">> Overriding volatility %s. Setting to %0.05f" % (ticker, TICKER_VOLATILITY_OVERRIDES[ticker])
             ticker_volatilities[ticker] = TICKER_VOLATILITY_OVERRIDES[ticker]
 
