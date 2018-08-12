@@ -41,14 +41,16 @@ def equalize_weights(tuples):
         last_vol_over_other_vols = []
         for i in range(0, num_args - 1):
             curr_vol = tuples[i][1]
-            last_vol_over_other_vols.append(last_vol / curr_vol)
+            last_vol_over_other_vols.append(
+                np.sqrt(last_vol / curr_vol)
+            )
 
         weight_n = 1.0 / (sum(last_vol_over_other_vols) + 1)
         weights_i = collections.defaultdict(lambda: 0.0)
         for i in range(0, num_args - 1):
             curr_vol = tuples[i][1]
             curr_label = tuples[i][0]
-            weights_i[curr_label] = (last_vol / curr_vol) * weight_n
+            weights_i[curr_label] = np.sqrt((last_vol / curr_vol)) * weight_n
 
         weights_i[last_label] = weight_n
         return weights_i
