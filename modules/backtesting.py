@@ -1,5 +1,5 @@
 import pandas as pd
-import util
+from .util import get_returns
 import datetime
 
 
@@ -14,13 +14,13 @@ def backtest(weight_dict, output=False):
 	returns_dfs = []
 
 	for ticker in new_weight_dict:
-		df = util.get_returns(ticker, start, end, period=1)
+		df = get_returns(ticker, start, end, period=1)
 		df['%s Returns' % ticker] = df['Returns']
 		df = pd.DataFrame(df['%s Returns' % ticker])
 		returns_dfs.append(df)
 
 	merged_df = merge_dataframes_by_latest_start_date(returns_dfs)
-	merged_df['Portfolio Returns'] = merged_df['%s Returns' % new_weight_dict.keys()[0]] * 0.0 # just set it to 0 
+	merged_df['Portfolio Returns'] = merged_df['%s Returns' % list(new_weight_dict.keys())[0]] * 0.0 # just set it to 0 
 
 	for ticker in new_weight_dict:
 		weight = new_weight_dict[ticker]

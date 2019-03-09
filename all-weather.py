@@ -22,7 +22,7 @@ from modules.all_weather_settings import *
 
 
 def update_weight_file(weight_dict):
-    weights = pd.read_csv(WEIGHTS_FILE).T.to_dict().values()
+    weights = list(pd.read_csv(WEIGHTS_FILE).T.to_dict().values())
     weights.append(weight_dict)
     weights = pd.DataFrame(weights)
     weights.to_csv(WEIGHTS_FILE, index=False)
