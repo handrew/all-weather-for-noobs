@@ -183,7 +183,7 @@ def get_asset_class_weights(ticker_volatilities):
 def perform_variance_overrides(ticker_volatilities):
     for ticker in TICKER_VOLATILITY_OVERRIDES:
         if (ticker in ticker_volatilities):
-            print ">> Overriding volatility %s. Setting to %0.05f" % (ticker, TICKER_VOLATILITY_OVERRIDES[ticker])
+            print(">> Overriding volatility %s. Setting to %0.05f" % (ticker, TICKER_VOLATILITY_OVERRIDES[ticker]))
             ticker_volatilities[ticker] = TICKER_VOLATILITY_OVERRIDES[ticker]
 
     return ticker_volatilities
@@ -215,7 +215,7 @@ def main():
     pp = pprint.PrettyPrinter(indent=4)
 
     # first get ticker price and volatility data
-    print ">> Getting ticker data..."
+    print(">> Getting ticker data...")
     ticker_data = get_ticker_data()
 
     ticker_volatilities = get_ticker_volatilities(ticker_data)
@@ -229,13 +229,13 @@ def main():
     # find individual asset weight by multiplying box_weights and environment_weights per my all weather configuration
     weight_dict = finalize_ticker_weights(asset_class_weights, environment_weights, box_weights)
 
-    print "\n>> Volatilities"
+    print("\n>> Volatilities")
     pp.pprint(ticker_volatilities)
-    print "\n>> Box weights"
+    print("\n>> Box weights")
     pp.pprint(box_weights)
-    print "\n>> Environment weights"
+    print("\n>> Environment weights")
     pp.pprint(environment_weights)
-    print "\n>> Final weights"
+    print("\n>> Final weights")
     pp.pprint(weight_dict)
 
     update_weight_file(weight_dict)

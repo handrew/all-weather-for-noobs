@@ -35,5 +35,5 @@ def convert_annualized_stddev_to_annualized_variance(ann_std):
 	return variance * np.sqrt(252)
 
 if __name__ == "__main__":
-	print get_implied_volatilities_for_tickers(['TLT', 'GLD', 'DBC', 'HYG', 'VTI', 'VWO', 'VGK'])
-	print get_implied_volatilities_for_tickers(['TLT', 'GLD', 'DBC', 'HYG', 'VTI', 'VWO', 'VGK'], get_variance = False)
+	print(get_implied_volatilities_for_tickers(['TLT', 'GLD', 'DBC', 'HYG', 'VTI', 'VWO', 'VGK']))
+	print(get_implied_volatilities_for_tickers(['TLT', 'GLD', 'DBC', 'HYG', 'VTI', 'VWO', 'VGK'], get_variance = False))

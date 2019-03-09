@@ -24,4 +24,4 @@ VOL_WINDOW = 60
 
 ###############################################
 
-print ">> Outputting to %s" % WEIGHTS_FILE
+print(">> Outputting to %s" % WEIGHTS_FILE)

@@ -4,7 +4,7 @@ import datetime
 
 
 def backtest(weight_dict, output=False):
-	print "Backtesting..."
+	print("Backtesting...")
 	new_weight_dict = weight_dict.copy()
 	del new_weight_dict['Date'] 
 
