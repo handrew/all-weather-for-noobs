@@ -1,11 +1,8 @@
 import pandas as pd
-import quandl
 import datetime
-import pdb
 import numpy as np
-import keyring
+import yfinance as yf
 
-QUANDL_AUTH_TOKEN = keyring.get_password('handrew', 'quandl')
 
 # PURPOSE OF THIS SCRIPT:
 # Take "aw-simulated-returns.csv" and remove #N/As and pull S&P price data 
@@ -17,12 +14,12 @@ QUANDL_AUTH_TOKEN = keyring.get_password('handrew', 'quandl')
 
 
 aw = pd.read_csv("aw-simulated-returns.csv")
-aw = aw[np.isfinite(aw['Simulated Returns'])] # remove rows with #N/As 
+aw = aw[np.isfinite(aw['Simulated Returns'])]  # remove rows with #N/As 
 
-start = aw['Date'].iloc[0] # get first date
-end = datetime.datetime.now()
+start = aw['Date'].iloc[0].strftime("%Y-%m-%d")
+end = datetime.datetime.now().strftime("%Y-%m-%d")
 
-df = quandl.get("EOD/SPY", authtoken=QUANDL_AUTH_TOKEN, start=start, end=end) # pull the S&P's price data
+df = yf.download("SPY", start=start, end=end)  # pull the S&P's price data
 
 # ideally you wouldn't be looking at two different CSVs but I hate merging things
 # so sue me
