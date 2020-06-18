@@ -5,6 +5,7 @@ All Weather is a risk parity strategy developed and used by Bridgewater. Much ha
 ## Usage
 
 `pip install -r requirements.txt`
+
 `python main.py --help`
 
 ## Modifications
