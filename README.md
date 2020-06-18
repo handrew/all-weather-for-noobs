@@ -7,7 +7,7 @@ All Weather is a risk parity strategy developed and used by Bridgewater. Much ha
 The most salient modifications I made to the strategy are:
 
 * Variances are assumed to be independent (i.e., they are summed without adjusting for covariances). 
-* The formula for risk parity used was simply a inverse-volatility weighted average. Similar concepts, such as the "equal risk contribution" portfolio can be used to account for covariances. Both are described in <a href="https://people.umass.edu/~kazemi/An%20Introduction%20to%20Risk%20Parity.pdf" target="blank">this paper</a>.
+* The formula for risk parity used was simply an inverse-volatility weighted average. Similar concepts, such as the "equal risk contribution" portfolio can be used to account for covariances. Both are described in <a href="https://people.umass.edu/~kazemi/An%20Introduction%20to%20Risk%20Parity.pdf" target="blank">this paper</a>.
 * Gold was used as a substitute for inflation-protected securities (and long-term bonds for bonds) because retail investors do not have easy access to leverage, so more volatile substitutes had to be selected.
 * ETFs used: Growth rising (VTI, DBC), growth falling (TLT, GLD), inflation rising (GLD, DBC), inflation falling (TLT, VTI).
 
