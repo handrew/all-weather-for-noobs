@@ -8,17 +8,12 @@ CFTC RULE 4.41 – HYPOTHETICAL OR SIMULATED PERFORMANCE RESULTS HAVE CERTAIN LI
 
 ## Why All Weather?
 
-All Weather is a risk parity strategy developed and used by Bridgewater. Much has been written – by <a target="_blank" href="https://www.bridgewater.com/research-library/risk-parity/">Bridgewater</a> and others – about the advantages of risk parity over modern portfolio theory. The disadvantages of traditional Markowitz optimization include:
-
-* They assume stable covariance, and in particular that stocks and bonds are inversely correlated.
-* Expected return assumptions are often inaccurate.
-* "Risk tolerance" is de facto proportional to percentage of stocks you own.
-
-All Weather, on the other hand, does not make any covariance or expected return assumptions. 
+All Weather is a risk parity strategy developed and used by Bridgewater. Much has been written – by <a target="_blank" href="https://www.bridgewater.com/research-library/risk-parity/">Bridgewater</a> and <a href="https://www.aqr.com/Insights/Research/White-Papers/Understanding-Risk-Parity" target="_blank">others</a> – about the advantages of risk parity over modern portfolio theory.
 
 ## Modifications
 
-In no particular order and subject to revision:
+The most salient modifications I made to the strategy are:
 
 * Variances are assumed to be independent (i.e., they are summed without adjusting for covariances)
 * Gold was used as a substitute for inflation-protected securities (and long-term bonds for bonds) because retail investors do not have easy access to leverage, so more volatile substitutes had to be selected
+* ETFs used: Growth rising (VTI, DBC), growth falling (TLT, GLD), inflation rising (GLD, DBC), inflation falling (TLT, VTI)
