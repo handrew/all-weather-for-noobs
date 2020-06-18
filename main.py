@@ -11,8 +11,8 @@ from util import RiskParityPortfolio, EqualWeightPortfolio
 @click.option("--vol", default=0.15, help="Volatility target (std dev).")
 @click.option("--start", default="2007-10-19", help="Start date.")
 @click.option("--end", default=datetime.datetime.now(), help="End date.")
-@click.option("--out", default="backtest.csv", help="End date.")
-@click.option("--benchmark", default="VTI", help="End date.")
+@click.option("--out", default="backtest.csv", help="Backtest output file.")
+@click.option("--benchmark", default="VTI", help="Benchmark ETF to use.")
 def all_weather(vol, start, end, out, benchmark):
     """Calculate risk parity portfolio per All Weather."""
     print("\nGetting stocks...")
