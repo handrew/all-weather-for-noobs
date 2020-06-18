@@ -1,4 +1,4 @@
-# The Poor Man's All Weather sStrategy
+# The Poor Man's All Weather Strategy
 
 All Weather is a risk parity strategy developed and used by Bridgewater. Much has been written – by <a target="_blank" href="https://www.bridgewater.com/research-library/risk-parity/">Bridgewater</a> and <a href="https://www.aqr.com/Insights/Research/White-Papers/Understanding-Risk-Parity" target="_blank">others</a> – about the advantages of risk parity over modern portfolio theory, so I won't belabor them here.
 
