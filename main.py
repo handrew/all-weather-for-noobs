@@ -54,9 +54,10 @@ def all_weather(vol, start, end, out, benchmark):
     del benchmark_indexed["Value"]
 
     total = all_weather_indexed.join(benchmark_indexed)
+    print("Output backtest results to: %s" % out)
     total.dropna().to_csv(out)
 
-    print("Weights for today:")
+    print("\nWeights for today:")
     weights = all_weather.optimize()
     for key in weights.keys():
         print(key, "\t\t", weights[key]["weight"])
