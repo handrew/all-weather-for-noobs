@@ -6,37 +6,58 @@ from util.stock import Stock
 from util.backtester import SanityBacktester
 from util import RiskParityPortfolio, EqualWeightPortfolio
 
+import yaml
+import numpy as np
+
 
 @click.command()
-@click.option("--vol", default=0.15, help="Volatility target (std dev).")
-@click.option("--start", default="2007-10-19", help="Start date.")
-@click.option("--end", default=datetime.datetime.now(), help="End date.")
-@click.option("--out", default="backtest.csv", help="Backtest output file.")
-@click.option("--benchmark", default="VTI", help="Benchmark ETF to use.")
-def all_weather(vol, start, end, out, benchmark):
+@click.argument("settings")
+def all_weather(settings):
     """Calculate risk parity portfolio per All Weather."""
-    print("\nGetting stocks...")
-    bm = Stock(benchmark, "Benchmark")
-    vti = Stock("VTI", "Stocks (VTI)")
-    dbc = Stock("DBC", "Commodities (DBC)")
-    gld = Stock("GLD", "Gold (GLD)")
-    tlt = Stock("TLT", "Long-term Bonds (TLT)")
+    settings = yaml.load(open(settings, "r"), Loader=yaml.Loader)
 
-    print("\nForming portfolios...")
-    vol_target = vol
-    rg = RiskParityPortfolio([vti, dbc], volatility_target=vol_target)
-    ri = RiskParityPortfolio([gld, dbc], volatility_target=vol_target)
-    fg = RiskParityPortfolio([tlt, gld], volatility_target=vol_target)
-    fi = RiskParityPortfolio([tlt, vti], volatility_target=vol_target)
-    all_weather = EqualWeightPortfolio([rg, ri, fg, fi])
-
-    print("\nBacktesting...")
-    start = datetime.datetime.strptime(start, "%Y-%m-%d")
+    # Set up dates.
+    if "END_DATE" not in settings:
+        settings["END_DATE"] = datetime.datetime.now()
+    start = datetime.datetime.strptime(settings["START_DATE"], "%Y-%m-%d")
+    end = settings["END_DATE"]
     if isinstance(end, str):
         end = datetime.datetime.strptime(end, "%Y-%m-%d")
 
+    # Set up other variables.
+    vol_target = settings["VOLATILITY_TARGET"]
+    benchmark = settings["BENCHMARK_TICKER"]
+    out = settings["OUTPUT_FILE"]
+
+    print("Volatility target: {}%".format(vol_target * 100))
+    print("Backtesting from %s to %s." % (start, end))
+    print("Benchmarking against: %s" % benchmark)
+    all_tickers = set(
+        np.concatenate(list(settings["ENVIRONMENTS"].values()))
+    ).union(set([benchmark]))
+
+    print("\nGetting stocks...")
+    cache = {
+        ticker: Stock(ticker, ticker) for ticker in all_tickers
+    }  # To avoid making unnecessary API calls.
+
+    print("\nForming portfolios...")
+    portfolios = {
+        environment: RiskParityPortfolio(
+            [
+                cache[ticker]
+                for ticker in settings["ENVIRONMENTS"][environment]
+            ],
+            volatility_target=vol_target,
+        )
+        for environment in settings["ENVIRONMENTS"]
+    }
+    all_weather = EqualWeightPortfolio(list(portfolios.values()))
+
+    print("\nBacktesting...")
+
     all_weather_bt = SanityBacktester(all_weather)
-    benchmark = SanityBacktester(EqualWeightPortfolio([bm]))
+    benchmark = SanityBacktester(EqualWeightPortfolio([cache[benchmark]]))
 
     aw_pcts = all_weather_bt.backtest(start_date=start, end_date=end)
     benchmark_pcts = benchmark.backtest(start_date=start, end_date=end)
@@ -46,7 +67,9 @@ def all_weather(vol, start, end, out, benchmark):
     )
 
     all_weather_indexed = util.one_index(aw_pcts.sum(axis=1).dropna())
-    benchmark_indexed = util.one_index(benchmark_pcts[benchmark_pcts.columns[0]].dropna())
+    benchmark_indexed = util.one_index(
+        benchmark_pcts[benchmark_pcts.columns[0]].dropna()
+    )
 
     all_weather_indexed["All Weather"] = all_weather_indexed["Value"]
     benchmark_indexed["Benchmark"] = benchmark_indexed["Value"]
